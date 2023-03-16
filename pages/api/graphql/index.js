@@ -7,7 +7,7 @@ const typeDefs = /* GraphQL */ `
         id: Int!
         title: String!
         thumbnail: String!
-        prize: float
+        prize: Float
     }
     type Query {
         product: Product
