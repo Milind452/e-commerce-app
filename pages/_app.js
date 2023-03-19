@@ -1,5 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
-import Header from '../components/Header';
+import { createGlobalStyle } from "styled-components";
+import Header from "../components/Header";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const GlobalStyle = createGlobalStyle` 
   body { 
@@ -13,14 +14,21 @@ const GlobalStyle = createGlobalStyle`
   } 
 `;
 
+const client = new ApolloClient({
+    uri: "http://localhost:3000/api/graphql",
+    cache: new InMemoryCache(),
+});
+
 function MyApp({ Component, pageProps }) {
-  return (
-    <>
-      <GlobalStyle />
-      <Header />
-      <Component {...pageProps} />
-    </>
-  );
+    return (
+        <>
+            <ApolloProvider client={client}>
+                <GlobalStyle />
+                <Header />
+                <Component {...pageProps} />
+            </ApolloProvider>
+        </>
+    );
 }
 
 export default MyApp;
